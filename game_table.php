@@ -4,7 +4,7 @@
 $connect= mysqli_connect("localhost","root","","games");
 
 $select_names=mysqli_query($connect,"SELECT u.firstname,u.lastname, sum(s.home_player_goal) as 'home player goal',
-count(s.home_player) AS 'away player goal' FROM users AS u
+count(s.home_player) AS 'away player goal',sum(home_player_goal + away_player_goal) FROM users AS u
 JOIN game_sessions AS s
 ON u.id=s.home_player
 GROUP BY u.firstname");
@@ -62,7 +62,7 @@ GROUP BY u.firstname");
                     <?php
                   
                     while($rowed=mysqli_fetch_array($select_names)){
-                        echo "<tr><td> ".$rowed[0]." ".$rowed[1]."</td><td> ".$rowed[3]." game</td><td> ".$rowed[2]." goals</td></tr><br/>";
+                        echo "<tr><td> ".$rowed[0]." ".$rowed[1]."</td><td> ".$rowed[3]." game</td><td> ".$rowed[4]." goals</td></tr><br/>";
                         // echo "<tr><td> ".$rowed[2]."</td></tr><br/>";
                         
                         
